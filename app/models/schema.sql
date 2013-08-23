@@ -4,7 +4,7 @@
 create table person (
     id integer primary key, 
     name varchar(50),
-    email varchar(254) unique,
+    email varchar(254) unique
 );
 
 -- Telephone, something that can be typed on a phone to yell at someone.
