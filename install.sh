@@ -16,9 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # create a database file and install the sql schema.
-$DBPATH=./app/model
+DBPATH=./app/models
 touch ${DBPATH}/db
-sqlite3 ${DBPATH} < ${DBPATH}/schema.sql
+sqlite3 ${DBPATH}/db < ${DBPATH}/schema.sql
 
 # All done.
 echo "Installation Completed"
