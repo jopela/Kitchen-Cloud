@@ -48,13 +48,30 @@ create table category (
 );
 
 -- Grocer. Can purchase food from them
--- TODO: need to add grocer_person table, grocer_product table.
 create table grocer (
     id integer primary key,
     name varchar(30),
     account varchar(30)
-
 );
+
+-- Enables the many-to-many relationship between grocer and products (e.g: many
+-- grocers may sell potatoes and many products may be sold by one grocer).
+create table grocer_product (
+    grocer_id integer,
+    product_id integer,
+    foreign key(grocer_id) references grocer(id),
+    foreign key(product_id) references product(id),
+    primary key(grocer_id, product_id)
+);
+
+create table grocer_person (
+    grocer_id integer,
+    person_id integer,
+    foreign key(grocer_id) references grocer(id),
+    foreign key(person_id) references person(id),
+    primary key(grocer_id, person_id)
+);
+
 
 -- Zone. Places where you store your food. A kitchen is a collection
 -- of Zones.
