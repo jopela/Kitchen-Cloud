@@ -72,7 +72,6 @@ create table grocer_person (
     primary key(grocer_id, person_id)
 );
 
-
 -- Zone. Places where you store your food. A kitchen is a collection
 -- of Zones.
 create table zone (
@@ -89,10 +88,13 @@ create table product(
     description varchar(100),
     category integer,
     price float,
-    kitchen integer,
+    zone integer,
     foreign key(category) references category(id),
-    foreign key(kitchen) references kitchen(id)
+    foreign key(zone) references zone(id)
 );
+
+-- TODO: change every field name that is a foreign key of every table from
+-- <field_name> to <reftablename_id>.
 
 -- Waste. Represents the waste coefficent for a transformation applied to a
 -- food product (e.g: peeled carrot vs non-peeled carots. With peeled carots,
