@@ -27,9 +27,9 @@ create table user (
     id integer primary key,
     username varchar(254),
     hash varchar(120),
-    person integer unique,
+    owner integer unique,
     status integer,
-    foreign key(person) references person(id),
+    foreign key(owner) references person(id),
     foreign key(status) references status(id)
 );
 
@@ -82,23 +82,32 @@ create table zone (
 );
 
 -- Product. Things that can be bought from food grocers.
+-- TODO: add a many-to-many relationship between product and zones (Quantity?).
 create table product(
     id integer primary key,
-    name varchar(30),
+    name varchar(30) unique,
     description varchar(100),
     category integer,
     price float,
     zone integer,
-    foreign key(category) references category(id),
-    foreign key(zone) references zone(id)
+    foreign key(category) references category(id)
 );
 
--- TODO: change every field name that is a foreign key of every table from
--- <field_name> to <reftablename_id>.
+-- Quantity. A measure of how much of a particular foor product
+-- you have at a particular date and where it is stored (zone).
+create table quantity(
+    id integer primary key,
+    zone integer,
+    format integer,
+    timestamp date,
+    foreign key(zone) references zone(id),
+    foreign key(format) references format(id)
+
+);
 
 -- Waste. Represents the waste coefficent for a transformation applied to a
--- food product (e.g: peeled carrot vs non-peeled carots. With peeled carots,
--- you have greater waste.).
+-- food product during meal preparation (e.g: peeled carrot vs non-peeled 
+-- carots).
 create table waste (
     id integer primary key,
     name varchar(20),
