@@ -64,6 +64,8 @@ create table grocer_product (
     primary key(grocer_id, product_id)
 );
 
+-- Enables the many-to-many relationship between grocer and person (e.g: a 
+-- grocer may have many 
 create table grocer_person (
     grocer_id integer,
     person_id integer,
@@ -82,7 +84,6 @@ create table zone (
 );
 
 -- Product. Things that can be bought from food grocers.
--- TODO: add a many-to-many relationship between product and zones (Quantity?).
 create table product(
     id integer primary key,
     name varchar(30) unique,
@@ -102,7 +103,6 @@ create table quantity(
     timestamp date,
     foreign key(zone) references zone(id),
     foreign key(format) references format(id)
-
 );
 
 -- Waste. Represents the waste coefficent for a transformation applied to a
