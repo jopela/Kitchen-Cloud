@@ -44,14 +44,19 @@ create table kitchen (
 -- Category. This is for food item category (e.g: VEGETABLE, MEAT, CEREAL).
 create table category (
     id integer primary key,
-    name varchar(30)
+    name varchar(30),
+    user integer,
+    foreign key(user) references user(id)
 );
 
 -- Grocer. Can purchase food from them
 create table grocer (
     id integer primary key,
     name varchar(30),
-    account varchar(30)
+    account_number varchar(30),
+    user integer,
+    foreign key(user) references user(id)
+
 );
 
 -- Enables the many-to-many relationship between grocer and products (e.g: many
@@ -90,7 +95,6 @@ create table product(
     description varchar(100),
     category integer,
     price float,
-    zone integer,
     foreign key(category) references category(id)
 );
 
@@ -101,14 +105,15 @@ create table quantity(
     zone integer,
     format integer,
     timestamp date,
+    numerical float, -- quantity stored.
     foreign key(zone) references zone(id),
     foreign key(format) references format(id)
 );
 
--- Waste. Represents the waste coefficent for a transformation applied to a
+-- Transformation. Represents the waste coefficent for a transformation applied to a
 -- food product during meal preparation (e.g: peeled carrot vs non-peeled 
 -- carots).
-create table waste (
+create table transformation(
     id integer primary key,
     name varchar(20),
     coefficient float,
@@ -122,9 +127,79 @@ create table waste (
 create table format (
     id integer primary key,
     name varchar(30),
-    quantity float,
+    unit varchar(20),
+    quantity integer,
     product integer,
     foreign key(product) references product(id)
 );
-    
+
+-- Invoice. All food purchases made at a particular grocer. 
+create table invoice (
+    id integer primary key,
+    timestamp date,
+    grocer integer,
+    kitchen integer,
+    foreign key(kitchen) references kitchen(id),
+    foreign key(grocer) references grocer(id)
+
+);
+
+-- Items that can be found on an invoice.
+create table invoice_product(
+    id integer primary key,
+    product integer,
+    invoice integer,
+    format integer,
+    quantity integer,
+    price float,
+
+    foreign key(product) references product(id),
+    foreign key(invoice) references invoice(id),
+    foreign key(format) references format(id)
+
+);
+
+-- Recipe. List of product found in a receipe.
+create table recipe (
+    id integer primary key,
+    description varchar(50),
+    user integer,
+    nbr_meals integer,
+
+    foreign key(user) references user(id)
+);
+
+-- Enables the many-to-many relationship between recipe and kitchen.
+ create table recipe_kitchen (
+    recipe integer,
+    kitchen integer,
+    foreign key(recipe) references recipe(id),
+    foreign key(kitchen) references Kitchen(id),
+    primary key(recipe, kitchen)
+);
+
+--Enables the many-to-many relationship between product and recipes. This 
+-- relationship as attributes such as transformation, format and quantity.
+create table recipe_product (
+    id integer primary key,
+
+    recipe integer,
+    product integer,
+    transformation integer,
+    format integer,
+
+    quantity integer,
+
+    foreign key(recipe) references recipe(id),
+    foreign key(product) references product(id),
+    unique(recipe, product, transformation, format)
+);
+
+
+
+
+
+
+
+
 
