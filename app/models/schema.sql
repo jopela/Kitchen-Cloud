@@ -1,10 +1,38 @@
 -- Kitchen-Cloud datamodel.
 
--- Person, can be called by name and yelled at.
+-- Person. Superclass for user and contact.
 create table person (
     id integer primary key, 
-    name varchar(50),
+    firstname varchar(50),
+    lastname varchar(50),
     email varchar(254) unique
+
+);
+
+-- User of the application. A subtype of person who  pays (hopefully) something 
+-- to use our app. Will later need to add payment info to a user but this is for
+-- the future ...
+create table user (
+    id integer primary key,
+    username varchar(254) unique,
+    hash varchar(120),
+    person integer unique,
+    status integer,
+    foreign key(person) references person(id),
+    foreign key(status) references status(id)
+);
+
+-- Contact. A subtype  of person that represent the communication 
+-- point with a grocer.
+create table contact (
+    id integer primary key,
+    job_title varchar(50),
+
+    person integer unique,
+    user integer,
+
+    foreign key(user) references user(id),
+    foreign key(person) references person(id)
 );
 
 -- Telephone, something that can be typed on a phone to yell at someone.
@@ -21,17 +49,6 @@ create table status (
     name varchar(30)
 );
 
--- User of the application. Pays (hopefully) something to use our app.
--- will later need to add payment info to a user but this is for the future ...
-create table user (
-    id integer primary key,
-    username varchar(254),
-    hash varchar(120),
-    owner integer unique,
-    status integer,
-    foreign key(owner) references person(id),
-    foreign key(status) references status(id)
-);
 
 -- Kitchen owned by a user. User may have many kitchens
 create table kitchen (
