@@ -31,7 +31,8 @@ create table contact (
     person integer unique,
     user integer,
 
-    foreign key(user) references user(id),
+    foreign key(user) references user(id), -- user that entered the contact 
+    -- info.
     foreign key(person) references person(id)
 );
 
@@ -44,6 +45,7 @@ create table telephone (
 );
 
 -- Status. For account statuses (e.g: blocked, active, payment pending etc.).
+-- This table is application wide (same value used by all app users).
 create table status (
     id integer primary key,
     name varchar(30)
@@ -54,15 +56,15 @@ create table status (
 create table kitchen (
     id integer primary key,
     name varchar(20),
-    owner integer,
-    foreign key(owner) references user(id)
+    user integer,
+    foreign key(user) references user(id)
 );
 
 -- Category. This is for food item category (e.g: VEGETABLE, MEAT, CEREAL).
 create table category (
     id integer primary key,
     name varchar(30),
-    user integer,
+    user integer, -- each user may setup categories for all of it's kitchens.
     foreign key(user) references user(id)
 );
 
@@ -71,7 +73,7 @@ create table grocer (
     id integer primary key,
     name varchar(30),
     account_number varchar(30),
-    user integer,
+    user integer, -- each user has it's set of grocer.
     foreign key(user) references user(id)
 
 );
@@ -79,21 +81,22 @@ create table grocer (
 -- Enables the many-to-many relationship between grocer and products (e.g: many
 -- grocers may sell potatoes and many products may be sold by one grocer).
 create table grocer_product (
-    grocer_id integer,
-    product_id integer,
-    foreign key(grocer_id) references grocer(id),
-    foreign key(product_id) references product(id),
-    primary key(grocer_id, product_id)
+    grocer integer,
+    product integer,
+    foreign key(grocer) references grocer(id),
+    foreign key(product) references product(id),
+    primary key(grocer, product)
 );
 
--- Enables the many-to-many relationship between grocer and person (e.g: a 
--- grocer may have many 
-create table grocer_person (
-    grocer_id integer,
-    person_id integer,
-    foreign key(grocer_id) references grocer(id),
-    foreign key(person_id) references person(id),
-    primary key(grocer_id, person_id)
+-- Enables the many-to-many relationship between grocer and contact (e.g: a 
+-- grocer may have many contact and the same contact may be the same for
+-- different grocers).
+create table grocer_contact (
+    grocer integer,
+    contact integer,
+    foreign key(grocer) references grocer(id),
+    foreign key(contact) references contact(id),
+    primary key(grocer, contact)
 );
 
 -- Zone. Places where you store your food. A kitchen is a collection
@@ -105,7 +108,7 @@ create table zone (
     foreign key(kitchen) references kitchen(id)
 );
 
--- Product. Things that can be bought from food grocers.
+-- Product. Things that can be bought from grocers.
 create table product(
     id integer primary key,
     name varchar(30) unique,
@@ -127,8 +130,8 @@ create table quantity(
     foreign key(format) references format(id)
 );
 
--- Transformation. Represents the waste coefficent for a transformation applied to a
--- food product during meal preparation (e.g: peeled carrot vs non-peeled 
+-- Transformation. Represents the waste coefficent for a transformation applied 
+-- to a food product during meal preparation (e.g: peeled carrot vs non-peeled 
 -- carots).
 create table transformation(
     id integer primary key,
@@ -146,7 +149,7 @@ create table format (
     name varchar(30),
     unit varchar(20),
     quantity integer,
-    product integer,
+    product integer, -- product to witch it applies.
     foreign key(product) references product(id)
 );
 
@@ -180,13 +183,14 @@ create table invoice_product(
 create table recipe (
     id integer primary key,
     description varchar(50),
-    user integer,
+    user integer, -- recipe belong to a particular user.
     nbr_meals integer,
 
     foreign key(user) references user(id)
 );
 
--- Enables the many-to-many relationship between recipe and kitchen.
+-- Enables the many-to-many relationship between recipe and kitchen. Usefull
+-- Because inventory is made by kitchen.
  create table recipe_kitchen (
     recipe integer,
     kitchen integer,
@@ -195,8 +199,8 @@ create table recipe (
     primary key(recipe, kitchen)
 );
 
---Enables the many-to-many relationship between product and recipes. This 
--- relationship as attributes such as transformation, format and quantity.
+-- Enables the many-to-many relationship between product and recipes. This 
+-- relationship has attributes such as transformation, format and quantity.
 create table recipe_product (
     id integer primary key,
 
@@ -211,12 +215,5 @@ create table recipe_product (
     foreign key(product) references product(id),
     unique(recipe, product, transformation, format)
 );
-
-
-
-
-
-
-
 
 
