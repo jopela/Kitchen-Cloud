@@ -23,12 +23,13 @@ urls = (
     '/','index'
     )
 
+render = web.template.render('templates/',base='base')
+
 
 class index:
 
     def GET(self):
-        return "kitchen-cloud: work in your kitchen, manage it in the cloud!"
-
+        return render.index()
 
 if __name__ == '__main__':
     app = web.application(urls, globals())
