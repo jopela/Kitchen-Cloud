@@ -4,6 +4,10 @@ $def with(content)
     <head>
         <title> Kitchen-cloud </title>
         <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+        <!-- adding custum css for navbar if needed -->
+        $if content.css:
+            $for f in content.css.split():
+                <link rel="stylesheet" type="text/css" href="$f"> 
     </head>
     <body>
         $:content

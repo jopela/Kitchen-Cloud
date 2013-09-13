@@ -1,1 +1,8 @@
-<h1> Hello world </h1>
+$def with(name)
+$var css: ../static/css/jumbotron.css
+
+$if name:
+    <h1> hello to you my dear $name </h1>
+$else:
+    <h1> looks like you do not have a name </h1>
+

@@ -18,19 +18,24 @@
 
 import web
 
+# DEBUG FLAG (Set to False in prod).
+web.config.debug = True
+
 # Application urls mapping.
 urls = (
+    '/(.+)','index',
     '/','index'
     )
 
 render = web.template.render('templates/',base='base')
 
-
 class index:
 
-    def GET(self):
-        return render.index()
+    def GET(self,name=None):
+        return render.index(name)
 
 if __name__ == '__main__':
     app = web.application(urls, globals())
     app.run()
+
+
