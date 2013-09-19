@@ -30,8 +30,7 @@ render = web.template.render('templates/',base='base')
 
 class index:
     def GET(self):
-        navcontent='<p> this is a blast </p>'
-        return render.index(navcontent)
+        return render.index("")
 
 if __name__ == '__main__':
     app = web.application(urls, globals())
