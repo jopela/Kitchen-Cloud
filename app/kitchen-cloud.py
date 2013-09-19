@@ -23,16 +23,15 @@ web.config.debug = True
 
 # Application urls mapping.
 urls = (
-    '/(.+)','index',
     '/','index'
     )
 
 render = web.template.render('templates/',base='base')
 
 class index:
-
-    def GET(self,name=None):
-        return render.index(name)
+    def GET(self):
+        navcontent='<p> this is a blast </p>'
+        return render.index(navcontent)
 
 if __name__ == '__main__':
     app = web.application(urls, globals())

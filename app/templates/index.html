@@ -1,8 +1,9 @@
-$def with(name)
-$var css: ../static/css/jumbotron.css
+# This template is to be used when a navbar is to be 
+# added inside a page. The content of a navbar is
+# defined by viewobject widgets.
 
-$if name:
-    <h1> hello to you my dear $name </h1>
-$else:
-    <h1> looks like you do not have a name </h1>
+$def with(navcontent)
+$var css: ../static/css/jumbotron.css
+$var navcontent: $navcontent
+<h1> hello I am some content </h1>
 

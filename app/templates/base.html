@@ -10,6 +10,17 @@ $def with(content)
                 <link rel="stylesheet" type="text/css" href="$f"> 
     </head>
     <body>
-        $:content
+        $if content.navcontent:
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <span class="navbar-brand">Kitchen Cloud</span>
+                        $:content.navcontent.render()
+                    </div>
+                </div>
+            </div>
+        <div class="container">
+            $:content
+        </div>
     </body>
 </html>
