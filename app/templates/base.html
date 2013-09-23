@@ -3,7 +3,7 @@ $def with(content)
 <html>
     <head>
         <title> Kitchen-cloud </title>
-        <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-read.min.css">
         <!-- adding custum css for navbar if needed -->
         $if content.css:
             $for f in content.css.split():
@@ -15,12 +15,16 @@ $def with(content)
                 <div class="container">
                     <div class="navbar-header">
                         <span class="navbar-brand">Kitchen Cloud</span>
-                        $:content.navcontent
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="#">Home</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        <div class="container">
-            $:content
-        </div>
+        $:content
     </body>
 </html>

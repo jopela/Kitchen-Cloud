@@ -23,14 +23,19 @@ web.config.debug = True
 
 # Application urls mapping.
 urls = (
-    '/','index'
+    '/','index',
+    '/login','login'
     )
 
 render = web.template.render('templates/',base='base')
 
 class index:
     def GET(self):
-        return render.index("")
+        return render.index()
+
+class login:
+    def GET(self):
+        return render.login()
 
 if __name__ == '__main__':
     app = web.application(urls, globals())
