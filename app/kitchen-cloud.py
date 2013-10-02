@@ -16,29 +16,21 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import web
-
-# DEBUG FLAG (Set to False in prod).
-web.config.debug = True
-
-# Application urls mapping.
-urls = (
-    '/','index',
-    '/login','login'
-    )
-
-render = web.template.render('templates/',base='base')
-
-class index:
-    def GET(self):
-        return render.index()
-
-class login:
-    def GET(self):
-        return render.login()
-
-if __name__ == '__main__':
-    app = web.application(urls, globals())
-    app.run()
+from flask import Flask
+from flask.ext.mako import MakoTemplates
+from flask.ext.mako import render_template
 
 
+# Set to false in production
+debug=True
+
+# Application object
+app = Flask(__name__)
+app.template_folder = "templates"
+MakoTemplates(app)
+
+@app.route("/")
+def index():
+    return render_template('base.html', name="Jonathan")
+
+app.run(debug=debug)

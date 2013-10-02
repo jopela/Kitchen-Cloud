@@ -1,30 +1,9 @@
-$def with(content)
 <!doctype html>
 <html>
     <head>
-        <title> Kitchen-cloud </title>
-        <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-read.min.css">
-        <!-- adding custum css for navbar if needed -->
-        $if content.css:
-            $for f in content.css.split():
-                <link rel="stylesheet" type="text/css" href="$f"> 
+        <title> Kitchen Cloud </title>
     </head>
     <body>
-        $if content.navcontent:
-            <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <span class="navbar-brand">Kitchen Cloud</span>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active">
-                                <a href="#">Home</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        $:content
+        <h1> hello world from mako template ${name} </h1>
     </body>
 </html>
