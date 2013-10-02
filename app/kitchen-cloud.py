@@ -31,6 +31,6 @@ MakoTemplates(app)
 
 @app.route("/")
 def index():
-    return render_template('base.html', name="Jonathan")
+    return render_template('index.html', name="Jonathan")
 
 app.run(debug=debug)
