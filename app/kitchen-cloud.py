@@ -22,15 +22,33 @@ from flask.ext.mako import render_template
 
 
 # Set to false in production
-debug=True
+debug=False
 
 # Application object
 app = Flask(__name__)
 app.template_folder = "templates"
 MakoTemplates(app)
 
+
 @app.route("/")
 def index():
-    return render_template('index.html', name="Jonathan")
+    """ Main landing page of the kitchen-cloud application """
+    return render_template('index.html')
+
+@app.route("/explore")
+def explore():
+    """ Meant to display a list of features of the kitchen-cloud
+    application """
+    return render_template('404.html')
+
+@app.route("/pricing")
+def pricing():
+    """ Page that displays the pricing plan for the application """
+    return render_template('404.html')
+
+@app.route("/login")
+def login():
+    """ Page that displays the pricing plan for the application """
+    return render_template('404.html')
 
 app.run(debug=debug)
