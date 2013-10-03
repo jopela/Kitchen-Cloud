@@ -1,4 +1,14 @@
 <%inherit file="nav.html"/>
-<div class="container">
-    <h1> hello ! Well this is a fine name you habe my dear ${name} </h1>
+
+<!-- nav bar elements redefinition -->
+<%block name="right_items">
+<li><a href="${url_for('explore')}">Explore</a></li>
+<li><a href="${url_for('pricing')}">Pricing</a></li>
+<li><a href="${url_for('login')}">Login</a></li>
+</%block>
+
+<div class="jumbotron">
+    <div class="container">
+        <h1> Work in your Kitchen, manage it in the cloud </h1>
+    </div>
 </div>

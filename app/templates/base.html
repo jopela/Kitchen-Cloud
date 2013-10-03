@@ -2,18 +2,22 @@
 <html>
     <head>
         <title> Kitchen Cloud </title>
-
-        <!-- Twitter-Bootstrap css -->
-        <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-flatty.min.css">
-
-        <!-- template specific css if needed -->
-
         <!--jquery and js needed by bootstrap -->
         <script src="../static/js/jquery-2.0.3.min.js"></script>
         <script src="../static/js/bootstrap.min.js"></script>
+
+        <!-- Twitter-Bootstrap css -->
+        <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-journal.min.css">
+        <!-- template specific css if needed -->
+
+
+        <!-- css include block to be overrided by templates who need more
+        style --> 
+        <%block name="style"></%block>
 
     </head>
     <body>
         ${next.body()}
     </body>
 </html>
+
