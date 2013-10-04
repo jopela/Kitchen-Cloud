@@ -19,10 +19,11 @@
 from flask import Flask
 from flask.ext.mako import MakoTemplates
 from flask.ext.mako import render_template
+from flask import request
 
 
 # Set to false in production
-debug=False
+debug=True
 
 # Application object
 app = Flask(__name__)
@@ -37,18 +38,29 @@ def index():
 
 @app.route("/explore")
 def explore():
-    """ Meant to display a list of features of the kitchen-cloud
-    application """
+    """ Displays a list of features of the kitchen-cloud application """
     return render_template('404.html')
 
 @app.route("/pricing")
 def pricing():
-    """ Page that displays the pricing plan for the application """
+    """ Displays the pricing plan for the application """
     return render_template('404.html')
 
 @app.route("/login")
 def login():
+    """ Allow user to login into the application, provided they have
+    a proper account."""
+    return render_template('404.html')
+
+@app.route("/signup", methods=['GET','POST'])
+def signup():
     """ Page that displays the pricing plan for the application """
     return render_template('404.html')
+
+@app.route("/profile")
+def profile():
+    """ Page that displays the pricing plan for the application """
+    return render_template('404.html')
+
 
 app.run(debug=debug)

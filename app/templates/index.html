@@ -9,6 +9,24 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h1> Work in your Kitchen, manage it in the cloud </h1>
+        <div class="row">
+            <div class="col-md-8">
+                <h1> Work in your Kitchen, manage it in the cloud </h1>
+            </div>
+            <div class="col-md-4">
+                <form action=${url_for('login')} method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Choose a username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Choose a password">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your email address">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-mg">Suscribe</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
