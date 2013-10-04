@@ -27,7 +27,7 @@ from flask.ext.mako import render_template
 from flask.ext.mail import Mail, Message
 
 # model import
-from model import user
+from models import user
 
 # Set to false in production
 debug=True
