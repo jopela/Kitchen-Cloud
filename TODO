@@ -1,0 +1,10 @@
+1. Create flask-wtf forms for user creation
+2. Implement the /signup controller by making it
+    a. validate the form class created in 1.
+        if does not validate, flash errors to the user
+    b. adding the user to the db.
+    c. redirecting the user to it's profile
+
+3. implement the user profile view (/user/<username>)
+4. keep going !
+
