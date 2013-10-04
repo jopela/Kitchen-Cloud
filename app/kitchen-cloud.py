@@ -17,9 +17,14 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Flask
+from flask import url_for, request
+
+# Mako template imports
 from flask.ext.mako import MakoTemplates
 from flask.ext.mako import render_template
-from flask import request
+
+# flask-mail imports
+from flask.ext.mail import Mail, Message
 
 
 # Set to false in production
@@ -30,7 +35,19 @@ app = Flask(__name__)
 app.template_folder = "templates"
 MakoTemplates(app)
 
+# Mail server configuration
+MAIL_USERNAME = 'kitchen.cloud.dev'
+app.config.update(
+        MAIL_SERVER='smtp.gmail.com',
+        MAIL_PORT=465,
+        MAIL_USE_SSL=True,
+        MAIL_USERNAME=MAIL_USERNAME,
+        MAIL_PASSWORD= MAIL_USERNAME+'1234'
+        )
 
+mail = Mail(app)
+
+# ************************ MAIN CONTROLLER HANDLERS ***************************
 @app.route("/")
 def index():
     """ Main landing page of the kitchen-cloud application """
@@ -54,7 +71,8 @@ def login():
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
-    """ Page that displays the pricing plan for the application """
+
+    # if the method is GET, just redirect to the index page.
     return render_template('404.html')
 
 @app.route("/profile")
@@ -62,5 +80,9 @@ def profile():
     """ Page that displays the pricing plan for the application """
     return render_template('404.html')
 
+# ***************************** HELPER METHODS ********************************
+def lol():
+    print "im a helper methods that LOLS"
+    return
 
 app.run(debug=debug)

@@ -10,8 +10,8 @@ create table person (
 );
 
 -- User of the application. A subtype of person who  pays (hopefully) something 
--- to use our app. Will later need to add payment info to a user but this is for
--- the future ...
+-- to use our app. Will later need to add payment info to a user but this is 
+-- for the future ...
 create table user (
     id integer primary key,
     username varchar(254) unique,
