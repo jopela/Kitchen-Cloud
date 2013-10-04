@@ -17,7 +17,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Flask
-from flask import url_for, request
+from flask import url_for, request, redirect
 
 # Mako template imports
 from flask.ext.mako import MakoTemplates
@@ -26,6 +26,8 @@ from flask.ext.mako import render_template
 # flask-mail imports
 from flask.ext.mail import Mail, Message
 
+# model import
+from model import user
 
 # Set to false in production
 debug=True
@@ -45,7 +47,14 @@ app.config.update(
         MAIL_PASSWORD= MAIL_USERNAME+'1234'
         )
 
+# flask-wtf configutation (for forms handling and validation)
+app.config.update(
+        CSRF_ENABLED = True,
+        SECRET_KEY = 'SUPERSECRET'
+        )
+
 mail = Mail(app)
+alphabet = "abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()-=+"
 
 # ************************ MAIN CONTROLLER HANDLERS ***************************
 @app.route("/")
@@ -73,7 +82,20 @@ def login():
 def signup():
 
     # if the method is GET, just redirect to the index page.
-    return render_template('404.html')
+    if request.method == 'GET':
+        return redirect(url_for('index'))
+    else:
+        # If not,the method is POST and someone is trying to create a user.
+        # Invoke the relevent model methods and bring the user to it's
+        # loged-in happy place (/user/<name>).
+
+        # Try to validate the form data.
+
+        # If it validates, insert it into the database.
+
+        # User has been created. We can now log him in and redirect him to
+        # is profile.
+        return render_template('404.html')
 
 @app.route("/profile")
 def profile():
