@@ -14,19 +14,20 @@
                 <h1> Work in your Kitchen, manage it in the cloud </h1>
             </div>
             <div class="col-md-4">
-                <form action=${url_for('signup')} method="post">
+                <form action=${url_for('signup')} method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Choose a username">
+                        <input type="text" name="username" class="form-control" placeholder="Choose a username">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Choose a password">
+                        <input type="password" name="password" class="form-control" placeholder="Choose a password">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your email address">
+                        <input type="email" name="email" class="form-control" placeholder="Your email address">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block btn-mg">Suscribe</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-mg">Sign up</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+

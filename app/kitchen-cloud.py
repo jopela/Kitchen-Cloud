@@ -29,6 +29,9 @@ from flask.ext.mail import Mail, Message
 # model import
 from models import user
 
+# used form import
+from forms.user import User
+
 # Set to false in production
 debug=True
 
@@ -57,10 +60,15 @@ mail = Mail(app)
 alphabet = "abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()-=+"
 
 # ************************ MAIN CONTROLLER HANDLERS ***************************
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def index():
     """ Main landing page of the kitchen-cloud application """
-    return render_template('index.html')
+
+    # Sign up form that appears on the landing page
+    user = User(request.form)
+
+    if request.method == 'GET':
+        return render_template('index.html',form=user)
 
 @app.route("/explore")
 def explore():
@@ -78,24 +86,6 @@ def login():
     a proper account."""
     return render_template('404.html')
 
-@app.route("/signup", methods=['GET','POST'])
-def signup():
-
-    # if the method is GET, just redirect to the index page.
-    if request.method == 'GET':
-        return redirect(url_for('index'))
-    else:
-        # If not,the method is POST and someone is trying to create a user.
-        # Invoke the relevent model methods and bring the user to it's
-        # loged-in happy place (/user/<name>).
-
-        # Try to validate the form data.
-
-        # If it validates, insert it into the database.
-
-        # User has been created. We can now log him in and redirect him to
-        # is profile.
-        return render_template('404.html')
 
 @app.route("/profile")
 def profile():
