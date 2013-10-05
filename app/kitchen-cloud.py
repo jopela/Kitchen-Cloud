@@ -67,8 +67,20 @@ def index():
     # Sign up form that appears on the landing page
     user = User(request.form)
 
+    # get method handling
     if request.method == 'GET':
         return render_template('index.html',form=user)
+    # Post method with valid form
+    elif request.method == 'POST' and user.validate():
+        # Save the user to the database and redirect him to is profile.
+        # TODO: figure out how make a custum validator that
+        # resurns false if that user already exist.
+        return redirect(url_for('profile'))
+    # Post method with invalid form, display the template with it's errors
+    else:
+        return render_template('index.html', form=user)
+
+
 
 @app.route("/explore")
 def explore():

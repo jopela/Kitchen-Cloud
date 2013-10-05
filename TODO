@@ -1,10 +1,12 @@
-1. Create flask-wtf forms for user creation
-2. Implement the /signup controller by making it
+2. Implement logic in the index controller by making it
     a. validate the form class created in 1.
         if does not validate, flash errors to the user
+            I. figure out how to make a custom validator for the User form.
+            II. figure out how to work out the style of the form with
+            on the index.html view.
     b. adding the user to the db.
     c. redirecting the user to it's profile
 
-3. implement the user profile view (/user/<username>)
-4. keep going !
+3. implement the user profile view/controller (/profile)
+
 
