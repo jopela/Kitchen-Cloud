@@ -1,7 +1,7 @@
 <%inherit file="nav.html"/>
 <%namespace name="helper" file="formhelper.html"/>
 
-<!-- nav bar elements redefinition -->
+## nav bar elements redefinition 
 <%block name="right_items">
 <li><a href="${url_for('explore')}">Explore</a></li>
 <li><a href="${url_for('pricing')}">Pricing</a></li>
@@ -16,15 +16,17 @@
             </div>
             <div class="col-md-4">
                 <form action=${url_for('index')} method="POST">
-                    ## please see the comments in formhelper.html for the different method usage
+                    ## please see the comments in formhelper.html for documentation of the the different methods used here
                     <div class="form-group ${helper.class_on_error('has-error',form.username.errors)}">
-                        <label for="username" class="control-label"> There is an error </label>
+                        ${helper.error_list(form.username)}
                         <input type="text" name="username" class="form-control" placeholder="Choose a username">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group ${helper.class_on_error('has-error',form.password.errors)}">
+                        ${helper.error_list(form.password)}
                         <input type="password" name="password" class="form-control" placeholder="Choose a password">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group ${helper.class_on_error('has-error',form.email.errors)}">
+                        ${helper.error_list(form.email)}
                         <input type="email" name="email" class="form-control" placeholder="Your email address">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block btn-mg">Sign up</button>

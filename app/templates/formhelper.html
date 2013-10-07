@@ -9,13 +9,16 @@
     % endif
 </%def>
 
+###############################################################################
 ## renders the error label that should sit on top of the input widget for that
 ## particular field. The field argument is part of a form object (e.g.: 
 ## form.username) and is expected to have an error lost (e.g.: 
-## form.username.errors)
-## param: field (the form field for which errors should be rendered.
+## field.errors)
+## param: field (the form field for which the errors should be rendered).
 <%def name="error_list(field)">
-    hello world
+    % for error in field.errors:
+    <label for="${field.short_name}" class="control-label">${error}</label>
+    % endfor
 </%def>
 
     
