@@ -52,7 +52,7 @@ app.config.update(
 
 # flask-wtf configutation (for forms handling and validation)
 app.config.update(
-        CSRF_ENABLED = True,
+        CSRF_ENABLED = False,
         SECRET_KEY = 'SUPERSECRET'
         )
 
@@ -63,7 +63,6 @@ alphabet = "abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()-=+"
 @app.route("/", methods=['GET','POST'])
 def index():
     """ Main landing page of the kitchen-cloud application """
-
     # Sign up form that appears on the landing page
     user = User(request.form)
 
@@ -73,8 +72,8 @@ def index():
     # Post method with valid form
     elif request.method == 'POST' and user.validate():
         # Save the user to the database and redirect him to is profile.
-        # TODO: figure out how make a custum validator that
-        # resurns false if that user already exist.
+        # TODO: figure out how to make a custum validator that
+        # resurns false if that user already exists.
         return redirect(url_for('profile'))
     # Post method with invalid form, display the template with it's errors
     else:

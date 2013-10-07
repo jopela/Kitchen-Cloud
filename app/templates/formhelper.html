@@ -1,0 +1,21 @@
+###############################################################################
+## class_on_error: Allows for the adding of style whenever the error list of
+## a form field contains error.
+## param: style (the css class to be applied if errors is a non empty list).
+##        
+<%def name="class_on_error(style, errors)">
+    % if errors:
+    ${style}
+    % endif
+</%def>
+
+## renders the error label that should sit on top of the input widget for that
+## particular field. The field argument is part of a form object (e.g.: 
+## form.username) and is expected to have an error lost (e.g.: 
+## form.username.errors)
+## param: field (the form field for which errors should be rendered.
+<%def name="error_list(field)">
+    hello world
+</%def>
+
+    

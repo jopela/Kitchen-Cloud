@@ -1,5 +1,5 @@
 2. Implement logic in the index controller by making it
-    a. validate the form class created in 1.
+    a. validate the form class created from the post request.
         if does not validate, flash errors to the user
             I. figure out how to make a custom validator for the User form.
             II. figure out how to work out the style of the form with
