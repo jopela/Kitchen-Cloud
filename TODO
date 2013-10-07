@@ -1,12 +1,12 @@
-2. Implement logic in the index controller by making it
-    a. validate the form class created from the post request.
-        if does not validate, flash errors to the user
+2. Implement logic in the index controller by making it:
             I. figure out how to make a custom validator for the User form.
             II. figure out how to work out the style of the form with
             on the index.html view.
     b. adding the user to the db.
-    c. redirecting the user to it's profile
+    c. redirecting the user to it's profile.
 
-3. implement the user profile view/controller (/profile)
+3. implement the user profile view/controller (/profile).
+4. populate forms that have errors with the previously submitted values.
+5. try to send emails through gmail !
 
 
