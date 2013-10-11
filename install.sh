@@ -22,7 +22,8 @@ SCHEMAPATH=./app/schema
 DBNAME=kcdb
 DBFILE=${DBPATH}/${DBNAME}
 
-touch 
+mkdir -p ${DBPATH}
+touch ${DBFILE}
 
 sqlite3 ${DBFILE} < ${SCHEMAPATH}/schema.sql
 
