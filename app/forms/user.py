@@ -5,12 +5,7 @@ from wtforms import StringField, PasswordField
 from wtforms import validators
 from wtforms import ValidationError
 # Seriously, I do not understand why this work.
-from dbengines import sqlite3 as db
-
-# messing with the python path ...
-import sys
-
-user.create_user()
+from dbengines import sqlite as db
 
 # labels for form classes must be the same as the templates label since they
 # are used by some function to populate the for tag of some elements in forms.
@@ -21,9 +16,10 @@ class User(Form):
     email = StringField('email', [validators.Email()])
 
     # custom validators.
-
     def validate_username(self, username):
-        print "tryring to validate"
+        """ Make certain that the username is not in the database. """
+        if db.user_uname_exists(username.data):
+            raise ValidationError('User already exists.')
         return
 
 

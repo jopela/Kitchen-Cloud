@@ -26,9 +26,6 @@ from flask.ext.mako import render_template
 # flask-mail imports
 from flask.ext.mail import Mail, Message
 
-# model import
-from models import user
-
 # used form import
 from forms.user import User
 
@@ -77,12 +74,6 @@ def index():
         # resurns false if that user already exists.
 
         # Send the subscription confirmation mail to the new user.
-        content = "you can now log in to kitchen cloud and start being awesome"
-        msg = Message(subject="thank you for joining us",
-                recipients=[user.email.data],
-                body=content)
-
-        mail.send(msg)
         return redirect(url_for('profile'))
     # Post method with invalid form, display the template with it's errors
     else:

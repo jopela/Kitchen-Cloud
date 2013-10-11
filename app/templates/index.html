@@ -19,7 +19,7 @@
                     ## please see the comments in formhelper.html for documentation of the the different methods used here
                     <div class="form-group ${helper.class_on_error('has-error',form.username.errors)}">
                         ${helper.error_list(form.username)}
-                        <input type="text" name="username" class="form-control" placeholder="Choose a username">
+                        <input type="text" name="username" class="form-control" placeholder="Choose a username" value="${helper.class_on_error(form.username.data,form.username.errors)}">
                     </div>
                     <div class="form-group ${helper.class_on_error('has-error',form.password.errors)}">
                         ${helper.error_list(form.password)}
@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group ${helper.class_on_error('has-error',form.email.errors)}">
                         ${helper.error_list(form.email)}
-                        <input type="email" name="email" class="form-control" placeholder="Your email address">
+                        <input type="email" name="email" class="form-control" placeholder="Your email address" value="${form.email.data}">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block btn-mg">Sign up</button>
                 </form>
