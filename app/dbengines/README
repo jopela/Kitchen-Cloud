@@ -1,0 +1,20 @@
+database engine namespace
+=========================
+
+All modules in the dbengines package must implement the same given interface
+(set of database functions) and agree to return the same thing. This ensures
+that switching database engine becomes only a matter of switching the given
+namespace. For example, a switch from sqlite3 to mariadb might look like:
+
+before:
+    from dbengines import sqlite3 as db
+
+after:
+    from dbengines import mariadb as db
+
+therefore no code needs to be changed since we still user, for example:
+    db.user_by_name(username)
+
+everywhere to fetch a user. I find this to be less verbose then the whole 
+class definition thing.
+

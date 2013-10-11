@@ -16,9 +16,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # create a database file and install the sql schema.
-DBPATH=./app/models
-touch ${DBPATH}/db
-sqlite3 ${DBPATH}/db < ${DBPATH}/schema.sql
+
+DBPATH=../db
+SCHEMAPATH=./app/schema
+DBNAME=kcdb
+DBFILE=${DBPATH}/${DBNAME}
+
+touch 
+
+sqlite3 ${DBFILE} < ${SCHEMAPATH}/schema.sql
 
 # All done.
 echo "Installation Completed"

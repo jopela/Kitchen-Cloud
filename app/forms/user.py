@@ -5,7 +5,7 @@ from wtforms import StringField, PasswordField
 from wtforms import validators
 from wtforms import ValidationError
 # Seriously, I do not understand why this work.
-from models import user
+from dbengines import sqlite3 as db
 
 # messing with the python path ...
 import sys
