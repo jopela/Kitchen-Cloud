@@ -17,9 +17,15 @@ class User(Form):
 
     # custom validators.
     def validate_username(self, username):
-        """ Make certain that the username is not in the database. """
+        """ Make certain that the username is not in the database."""
         if db.user_uname_exists(username.data):
-            raise ValidationError('User already exists.')
+            raise ValidationError('User already exists')
+        return
+
+    def validate_email(self, email):
+        """ Make certain the email address in not already in the dabatase ."""
+        if db.user_email_exists(email.data):
+            raise ValidationError('Email already exists')
         return
 
 

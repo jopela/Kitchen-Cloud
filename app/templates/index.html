@@ -1,5 +1,5 @@
 <%inherit file="nav.html"/>
-<%namespace name="helper" file="formhelper.html"/>
+<%namespace name="help" file="formhelper.html"/>
 
 ## nav bar elements redefinition 
 <%block name="right_items">
@@ -10,9 +10,9 @@
 
 ## values used to prefill form data is there are errors
 <%
-    uname_val  = form.username.data if form.username.errors else ""
-    passwd_val = form.password.data if form.password.errors else "" 
-    email_val  = form.email.data if form.email.errors else ""
+    uname_val  = form.username.data if form.username.data else ""
+    passwd_val = form.password.data if form.password.data else "" 
+    email_val  = form.email.data if form.email.data else ""
 
     uname_css = "has-error" if form.username.errors else ""
     passw_css = "has-error" if form.password.errors else ""
@@ -29,15 +29,15 @@
                 <form action=${url_for('index')} method="POST">
                     ## please see the comments in formhelper.html for documentation of the the different methods used here
                     <div class="form-group ${uname_css}">
-                        ${helper.error_list(form.username)}
+                        ${help.err_list(form.username)}
                         <input type="text" name="username" class="form-control" placeholder="Choose a username" value="${uname_val}">
                     </div>
                     <div class="form-group ${passw_css}">
-                        ${helper.error_list(form.password)}
+                        ${help.err_list(form.password)}
                         <input type="password" name="password" class="form-control" placeholder="Choose a password" value="${passwd_val}">
                     </div>
                     <div class="form-group ${email_css}">
-                        ${helper.error_list(form.email)}
+                        ${help.err_list(form.email)}
                         <input type="email" name="email" class="form-control" placeholder="Your email address" value="${email_val}">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block btn-mg">Sign up</button>

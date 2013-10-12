@@ -1,4 +1,5 @@
 2. Implement logic in the index controller by making it:
+    a. add custom validator for the email in the db
     b. adding the user to the db.
     c. redirecting the user to it's profile.
 
