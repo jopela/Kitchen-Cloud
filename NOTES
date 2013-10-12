@@ -1,0 +1,34 @@
+Handling translation
+====================
+
+Heres is the general idea:
+    1) On the index page, try to guess the user language from something like
+    the http header or from the region they come from (deduced by geolocation
+    with the IP address). Also have a language dropdown in the navbar where
+    available languages are sorted from most used to least used in that region.
+
+    2) By default, when creating a user in the database, give the user the
+    language code that was selected on the index page. Yes, this implies that
+    therese is room in the database for the language code of that user.
+
+    3) Whenever a user is logged in, pull the user language code from the 
+    database, or whatever persistance mechanism is currently in use (session?)
+    and select, based on that language code, which template is going to be 
+    served to the user.
+
+    4) One mechanism for template selection mentionned in 3) could be to have 
+    a naming convention for templates such as 
+    <templatename>_<iso 639 language code>.html. The right template to use 
+    could then be inferred at runtime.
+
+    5) There would be a default template (e.g: index.html) that defines blocks
+    of things that need be translated (I mean mako blocks: <%block>...</%block>
+    ). If you want to translate things in french, just make an index_fr.html
+    and override the blocks. You can override langua bits anywhere in the 
+    inheritence hierarchy.
+
+    6) These are minor changes to the current way of doing things so we can
+    come back later and implement these changes.
+
+
+
