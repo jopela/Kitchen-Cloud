@@ -68,10 +68,14 @@ def index():
     if request.method == 'GET':
         return render_template('index.html',form=user)
     # Post method with valid form
+    # Im not sure but I think a lock on the database is required here
+    # to prevent creation of a user between verification and this other
+    # creation.
     elif request.method == 'POST' and user.validate():
         # Save the user to the database and redirect him to is profile.
         # TODO: figure out how to make a custum validator that
         # resurns false if that user already exists.
+
 
         # Send the subscription confirmation mail to the new user.
         return redirect(url_for('profile'))
