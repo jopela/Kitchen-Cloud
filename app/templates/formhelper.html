@@ -1,0 +1,5 @@
+<%def name="err_list(field)">
+    % for error in field.errors:
+    <label for="$[field.short_name}" class="control-label">${error}</label>
+    % endfor
+</%def>

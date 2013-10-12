@@ -21,15 +21,50 @@ DBPATH=../db
 SCHEMAPATH=./app/schema
 DBNAME=kcdb
 DBFILE=${DBPATH}/${DBNAME}
+SCHEMAFILENAME=schema.sql
+SEEDFILENAME=seeds.sql
+DEBUG=true
+
+# Clear the previous schema if in debug mode.
+if [ $DEBUG ]; then
+    echo 'Clearing the old schema ($DEBUG=true)'
+    cat /dev/null > ${DBFILE}
+fi
 
 mkdir -p ${DBPATH}
 touch ${DBFILE}
 
-sqlite3 ${DBFILE} < ${SCHEMAPATH}/schema.sql
+# Create the schema
+echo "Installing the Schema"
+sqlite3 ${DBFILE} < ${SCHEMAPATH}/${SCHEMAFILENAME}
+
+# Quit if it fails.
+if [ $? -ne 0 ]; then
+    echo "Error creating sql schema. Please verify ${SCHEMAFILENAME} for errors"
+    exit -1
+fi
+
+# Seed the database with values needed before app startup (e.g: list of 
+# country codes, iso language codes etc.).
+if [ -n "${SEEDFILENAME}" ]; then
+    echo "Seeding the database ..."
+    sqlite3 ${DBFILE} < ${SCHEMAPATH}/${SEEDFILENAME}
+
+    if [ $? -ne 0 ]; then
+        echo "Error seeding the database. Please verify ${SEEDFILENAME} for errors"
+        exit -1
+    fi
+fi
 
 # All done.
-echo "Installation Completed"
+if [ $? -eq 0 ]; then
+    echo "Installation Completed !"
+else
+    echo "Errors during the installation"
+    exit -1
+fi
 
+exit 0
 
 
 
