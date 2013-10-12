@@ -1,7 +1,4 @@
 2. Implement logic in the index controller by making it:
-            I. figure out how to make a custom validator for the User form.
-            II. figure out how to work out the style of the form with
-            on the index.html view.
     b. adding the user to the db.
     c. redirecting the user to it's profile.
 

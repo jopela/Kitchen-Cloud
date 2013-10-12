@@ -8,6 +8,17 @@
 <li><a href="${url_for('login')}">Login</a></li>
 </%block>
 
+## values used to prefill form data is there are errors
+<%
+    uname_val  = form.username.data if form.username.errors else ""
+    passwd_val = form.password.data if form.password.errors else "" 
+    email_val  = form.email.data if form.email.errors else ""
+
+    uname_css = "has-error" if form.username.errors else ""
+    passw_css = "has-error" if form.password.errors else ""
+    email_css = "has-error" if form.email.errors else ""
+%>
+
 <div class="jumbotron">
     <div class="container">
         <div class="row">
@@ -17,17 +28,17 @@
             <div class="col-md-4">
                 <form action=${url_for('index')} method="POST">
                     ## please see the comments in formhelper.html for documentation of the the different methods used here
-                    <div class="form-group ${helper.class_on_error('has-error',form.username.errors)}">
+                    <div class="form-group ${uname_css}">
                         ${helper.error_list(form.username)}
-                        <input type="text" name="username" class="form-control" placeholder="Choose a username" value="${helper.class_on_error(form.username.data,form.username.errors)}">
+                        <input type="text" name="username" class="form-control" placeholder="Choose a username" value="${uname_val}">
                     </div>
-                    <div class="form-group ${helper.class_on_error('has-error',form.password.errors)}">
+                    <div class="form-group ${passw_css}">
                         ${helper.error_list(form.password)}
-                        <input type="password" name="password" class="form-control" placeholder="Choose a password">
+                        <input type="password" name="password" class="form-control" placeholder="Choose a password" value="${passwd_val}">
                     </div>
-                    <div class="form-group ${helper.class_on_error('has-error',form.email.errors)}">
+                    <div class="form-group ${email_css}">
                         ${helper.error_list(form.email)}
-                        <input type="email" name="email" class="form-control" placeholder="Your email address" value="${form.email.data}">
+                        <input type="email" name="email" class="form-control" placeholder="Your email address" value="${email_val}">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block btn-mg">Sign up</button>
                 </form>
@@ -35,5 +46,4 @@
         </div>
     </div>
 </div>
-
 
