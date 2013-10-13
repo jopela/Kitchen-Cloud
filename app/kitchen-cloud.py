@@ -29,6 +29,9 @@ from flask.ext.mail import Mail, Message
 # used form import
 from forms.user import User
 
+# db function import
+from dbengines.dbcurrent import db
+
 # Set to false in production
 debug=True
 
@@ -75,9 +78,11 @@ def index():
         # Save the user to the database and redirect him to is profile.
         # TODO: figure out how to make a custum validator that
         # resurns false if that user already exists.
+        db.user_create_signup(user.username, user.password, user.email)
 
+        # Log the user in.
 
-        # Send the subscription confirmation mail to the new user.
+        # Send him to is profile.
         return redirect(url_for('profile'))
     # Post method with invalid form, display the template with it's errors
     else:
