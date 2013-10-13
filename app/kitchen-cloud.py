@@ -78,12 +78,15 @@ def index():
         # Save the user to the database and redirect him to is profile.
         # TODO: figure out how to make a custum validator that
         # resurns false if that user already exists.
-        db.user_create_signup(user.username, user.password, user.email)
+        db.user_create_signup(user.username.data,
+                user.password.data,
+                user.email.data)
 
         # Log the user in.
 
         # Send him to is profile.
         return redirect(url_for('profile'))
+
     # Post method with invalid form, display the template with it's errors
     else:
         return render_template('index.html', form=user)
