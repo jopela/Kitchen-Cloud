@@ -15,7 +15,15 @@ db = sqlite
 class User(UserMixin):
 
     def __init__(self, userid):
+
         self.user = db.user(userid)
+
+        self.id = self.user[0]
+        self.username = self.user[1]
+        self.hash = self.user[2]
+        self.person = self.user[3]
+        self.status = self.user[4]
+
     def is_active(self):
         return self.user[4] == 1
 
