@@ -1,6 +1,6 @@
 <%inherit file="nav.html"/>
 <%namespace name="help" file="formhelper.html"/>
-
+<Up>
 ## nav bar elements redefinition 
 <%block name="right_items">
 <li><a href="${url_for('explore')}">Explore</a></li>
@@ -8,7 +8,7 @@
 <li><a href="${url_for('login')}">Login</a></li>
 </%block>
 
-## values used to prefill form data is there are errors
+## values used to prefill form data if there are errors
 <%
     uname_val  = form.username.data if form.username.data else ""
     passwd_val = form.password.data if form.password.data else "" 

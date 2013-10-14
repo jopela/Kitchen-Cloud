@@ -16,6 +16,8 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from passlib.hash import sha256_crypt
+
 from flask import Flask
 from flask import url_for, request, redirect
 
@@ -26,11 +28,20 @@ from flask.ext.mako import render_template
 # flask-mail imports
 from flask.ext.mail import Mail, Message
 
-# used form import
-from forms.user import User
+# flask-login imports
+from flask.ext.login import LoginManager
+from flask.ext.login import login_required
+from flask.ext.login import login_user
+from flask.ext.login import current_user
+from flask.ext.login import logout_user
+
+# user form import
+from forms.user import Signup
+from forms.user import Login
 
 # db function import
 from dbengines.dbcurrent import db
+from dbengines import dbcurrent
 
 # Set to false in production
 debug=True
@@ -51,21 +62,32 @@ app.config.update(
         MAIL_DEFAULT_SENDER="noreply@kitchencloud.info"
         )
 
+mail = Mail(app)
+
 # flask-wtf configutation (for forms handling and validation)
 app.config.update(
         CSRF_ENABLED = False,
-        SECRET_KEY = 'SUPERSECRET'
+        SECRET_KEY = 'as@f^2D9jjd2$cAd8*/-a5^fa!sabn0!240xC^3)-'
         )
 
-mail = Mail(app)
-alphabet = "abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()-=+"
+# flask-login configuration (for user session purpuses)
+login_manager = LoginManager(app)
+
+# if user arent logged in and request a page that requires so, they are sent
+# to this view.
+login_manager.login_view = "login"
+
+# the user_loader callback required by flask-login
+@login_manager.user_loader
+def load_user(userid):
+    return dbcurrent.User(userid)
 
 # ************************ MAIN CONTROLLER HANDLERS ***************************
 @app.route("/", methods=['GET','POST'])
 def index():
     """ Main landing page of the kitchen-cloud application """
     # Sign up form that appears on the landing page
-    user = User(request.form)
+    user = Signup(request.form)
 
     # get method handling
     if request.method == 'GET':
@@ -82,9 +104,10 @@ def index():
                 user.password.data,
                 user.email.data)
 
-        # Log the user in.
+        # Authenticate and log the user in.
+        auth_and_login(user.username.data)
 
-        # Send him to is profile.
+        # Send him to is profile now.
         return redirect(url_for('profile'))
 
     # Post method with invalid form, display the template with it's errors
@@ -101,22 +124,49 @@ def pricing():
     """ Displays the pricing plan for the application """
     return render_template('404.html')
 
-@app.route("/login")
+@app.route("/login", methods=['GET','POST'])
 def login():
     """ Allow user to login into the application, provided they have
     a proper account."""
-    return render_template('404.html')
 
+    user = Login(request.form)
+
+    if request.method == 'POST' and user.validate():
+        # Authenticate, log and redirect them.
+        auth_and_login(user.username.data)
+        return redirect(url_for('profile'))
+    else:
+        # GET request or POST with errors.
+        return render_template('login.html', form=user)
 
 @app.route("/profile")
+@login_required
 def profile():
-    """ Page that displays the pricing plan for the application """
+    """ Page where the user lands once login is completed. """
+    return render_template('profile.html', user=current_user)
 
-    return render_template('profile.html')
+@app.route("/logout")
+@login_required
+def logout():
+    """ Function to logout the user and redirect him to the index page. """
+    username = current_user.user[1]
+    deauth_and_logout(username)
+
+    return redirect(url_for('index'))
+
 
 # ***************************** HELPER METHODS ********************************
-def lol():
-    print "im a helper methods that LOLS"
+def auth_and_login(username):
+    """ Authenticate a user in the database and log him in. """
+    db.authenticate(username)
+    uid = db.user_id(username)
+    login_user(dbcurrent.User(uid))
+    return
+
+def deauth_and_logout(username):
+    """ De-authenticate a user in the database and log him out. """
+    db.deauthenticate(username)
+    logout_user()
     return
 
 app.run(debug=debug)

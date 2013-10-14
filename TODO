@@ -1,10 +1,5 @@
-2. Implement logic in the index controller by making it:
-    a. add custom validator for the email in the db
-    b. adding the user to the db.
-    c. redirecting the user to it's profile.
-
-3. implement the user profile view/controller (/profile).
-4. populate forms that have errors with the previously submitted values.
-5. try to send emails through gmail !
-
+4. implement a logout functionality.
+5. need to make sure that user are de-authenticated if a certain amount of time
+passes ... (maybe add a date field to authenticated and when current-date > delta
+flush everything)
 

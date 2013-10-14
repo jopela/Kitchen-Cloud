@@ -22,6 +22,13 @@ create table user (
     foreign key(status) references status(id)
 );
 
+-- A list of all the user that are currently in the authenticated state. This
+-- is required to implement user login.
+create table authenticated (
+    id integer primary key,
+    foreign key(id) references user(id)
+);
+
 -- Contact. A subtype  of person that represent the communication 
 -- point with a grocer.
 create table contact (
