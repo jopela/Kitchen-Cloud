@@ -1,0 +1,47 @@
+<%inherit file="nav.html"/>
+
+<style>
+    .panel 
+    {
+        margin-top:18px;
+        border:none;
+    }
+
+    .list-group
+    {
+        margin:0px;
+    }
+
+    .panel-body
+    {
+        padding:0px;
+    }
+
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Management</h4>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                        <a href="#">Kitchen</a></li>
+                        <li class="list-group-item">
+                        <a href="#">Zone</a></li>
+                        <li class="list-group-item">
+                        <a href="#">Grocer</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            ${next.body()}
+        </div>
+    </div>
+</div>
+
+
