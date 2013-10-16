@@ -1,13 +1,11 @@
 <%inherit file="nav.html"/>
+<%namespace name="widget" file="widget.html"/>
 
 <div class="container">
     %if form.username.errors:
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    Invalid username or password
-                </div>
+                ${widget.alert_box('Invalid username or password')}
             </div>
         </div>
     % endif

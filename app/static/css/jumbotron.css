@@ -1,4 +1,11 @@
 body {
     padding-top:50px;
     padding-bottom:20px;
+    font-family:"Courier new";
 }
+
+.alert
+{
+    margin-top:20px;
+}
+

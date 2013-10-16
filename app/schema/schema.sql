@@ -125,7 +125,7 @@ create table product(
     foreign key(category) references category(id)
 );
 
--- Quantity. A measure of how much of a particular foor product
+-- Quantity. A measure of how much of a particular food product
 -- you have at a particular date and where it is stored (zone).
 create table quantity(
     id integer primary key,

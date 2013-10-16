@@ -1,3 +1,25 @@
 <%inherit file="sidebar.html"/>
+<%namespace name="widget" file="widget.html" />
 
-<h1> hello from profile </h1>
+<%block name="right_items">
+<li><a href="${url_for('logout')}">Logout</a></li>
+</%block>
+
+% if not kitchens:
+    ${widget.warning_box('You do not have any kitchen yet. To get started, create one by clicking Kitchen in the management sidebar')}
+% else:
+    <h4> ${user.username}'s kitchen(s) </h4>
+    <ul>
+    % for k in kitchens:
+        <li> ${k['name']}</li>
+    % endfor
+    </ul>
+% endif
+
+        
+        
+
+
+    
+        
+

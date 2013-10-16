@@ -143,7 +143,12 @@ def login():
 @login_required
 def profile():
     """ Page where the user lands once login is completed. """
-    return render_template('profile.html', user=current_user)
+
+    # Feed the template with all the users Kitchen.
+    kitchens = None # db.user_kitchen(current_user.get_id())
+
+    return render_template('profile.html', user=current_user,
+            kitchens=kitchens)
 
 @app.route("/logout")
 @login_required
@@ -153,6 +158,17 @@ def logout():
     deauth_and_logout(username)
 
     return redirect(url_for('index'))
+
+@app.route("/kitchen", methods=['GET','POST'])
+@login_required
+def kitchen():
+    """ Kitchen creation page. """
+
+    if request.method == 'GET':
+        return render_template('kitchen.html')
+    else:
+        return redirect(url_for('profile'))
+
 
 
 # ***************************** HELPER METHODS ********************************
