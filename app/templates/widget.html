@@ -1,0 +1,14 @@
+<%def name="box(message, type='alert-danger')">
+<div class="alert ${type} alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    ${message}
+</div>
+</%def>
+
+<%def name="alert_box(message)">
+${box(message,'alert-danger')}
+</%def>
+
+<%def name="warning_box(message)">
+${box(message,'alert-warning')}
+</%def>
