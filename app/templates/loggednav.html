@@ -1,0 +1,8 @@
+<%inherit file="nav.html"/>
+
+## Adding items to the navbar that are common to all
+<%block name="left_items">
+<li><a href="${url_for('zone')}">Zone</a></li>
+</%block>
+
+${next.body()}

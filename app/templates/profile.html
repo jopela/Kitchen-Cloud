@@ -1,25 +1,20 @@
 <%inherit file="sidebar.html"/>
 <%namespace name="widget" file="widget.html" />
 
-<%block name="right_items">
-<li><a href="${url_for('logout')}">Logout</a></li>
-</%block>
 
-% if not kitchens:
-    ${widget.warning_box('You do not have any kitchen yet. To get started, create one by clicking Kitchen in the management sidebar')}
+<%
+    messages = get_flashed_messages()
+%>
+
+% if messages:
+    % for m in messages:
+        ${widget.success_box(m)}
+    % endfor
 % else:
     <h4> ${user.username}'s kitchen(s) </h4>
     <ul>
-    % for k in kitchens:
-        <li> ${k['name']}</li>
-    % endfor
+    ##% for k in kitchens:
+    ##    <li> ${k['name']}</li>
+    ##% endfor
     </ul>
 % endif
-
-        
-        
-
-
-    
-        
-

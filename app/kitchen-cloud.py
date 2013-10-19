@@ -20,6 +20,7 @@ from passlib.hash import sha256_crypt
 
 from flask import Flask
 from flask import url_for, request, redirect
+from flask import flash
 
 # Mako template imports
 from flask.ext.mako import MakoTemplates
@@ -35,9 +36,10 @@ from flask.ext.login import login_user
 from flask.ext.login import current_user
 from flask.ext.login import logout_user
 
-# user form import
+# form import
 from forms.user import Signup
 from forms.user import Login
+from forms.kitchen import CreateKitchen
 
 # db function import
 from dbengines.dbcurrent import db
@@ -145,8 +147,7 @@ def profile():
     """ Page where the user lands once login is completed. """
 
     # Feed the template with all the users Kitchen.
-    kitchens = None # db.user_kitchen(current_user.get_id())
-
+    kitchens = db.user_kitchen(current_user.get_id())
     return render_template('profile.html', user=current_user,
             kitchens=kitchens)
 
@@ -164,10 +165,26 @@ def logout():
 def kitchen():
     """ Kitchen creation page. """
 
-    if request.method == 'GET':
-        return render_template('kitchen.html')
-    else:
+    create = CreateKitchen(request.form)
+    if request.method == 'POST' and create.validate():
+        # insert into db and redirect to profile
+        db.kitchen_create()
+        flash('Kitchen successfully created!')
         return redirect(url_for('profile'))
+    else:
+        return render_template('kitchen.html', form=create)
+
+@app.route("/setting", methods=['GET','POST'])
+@login_required
+def setting():
+    """ User personnal account settings. """
+    return render_template('setting.html')
+
+@app.route("/zone", methods=['GET','POST'])
+@login_required
+def zone():
+    """ Allows a user to CRUD zones for the current kitchen. """
+    return render_template('zone.html')
 
 
 

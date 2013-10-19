@@ -87,6 +87,14 @@ def user_hash(username):
     """ Return the user hash from it's username . """
     return from_field("user","hash","username",username)
 
+def user_kitchen(id):
+    """ Return a dictionnary that contains kitchen of the user identified
+    by id. """
+
+    kitchens = from_field('kitchen','name', 'id', id)
+    result = ({'name':k[0]} for k in kitchens) if kitchens else None
+    return result
+
 def authenticate(username):
     """ Insert the id of an authenticated user into the database. """
     uid = user_id(username)
@@ -112,6 +120,9 @@ def deauthenticate(username):
     with sqlite3.connect(con_str) as con:
         con.execute(sql, param)
     return
+
+#def kitchen_create(id, name):
+#    """ Insert a kitchen with name and associated with user id
 
 ##########################
 # database helper methods.

@@ -1,5 +1,6 @@
-4. implement a logout functionality.
 5. need to make sure that user are de-authenticated if a certain amount of time
-passes ... (maybe add a date field to authenticated and when current-date > delta
-flush everything)
-
+passes ... (maybe add a date field to authenticated and when current-date > 
+delta flush everything).
+6. flip over the management sidebar into the navbar.
+7. when you click on an item on the navbar, the sidebar displays options or 
+items relative to the clicked item (see thje h&r block stuff) .

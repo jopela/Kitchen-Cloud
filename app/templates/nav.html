@@ -2,20 +2,18 @@
 <div class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="${url_for('index')}">Kitchen Cloud</a>
+            <a class="navbar-brand" href="${url_for('index')}"><span class="glyphicon glyphicon-cutlery"></span> Kitchen Cloud</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <!-- content of the navbar located on the left -->
                 <%block name="left_items">
-                <li class="active"><a href="#">Home</a></li>
                 </%block>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <!-- content of the navbar located on the right -->
                 <%block name="right_items">
-                <li><a href="#">Contact</a></li>
                 </%block>
             </ul>
         </div>

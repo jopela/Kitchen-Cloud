@@ -1,23 +1,4 @@
-<%inherit file="nav.html"/>
-
-<style>
-    .panel 
-    {
-        margin-top:18px;
-        border:none;
-    }
-
-    .list-group
-    {
-        margin:0px;
-    }
-
-    .panel-body
-    {
-        padding:0px;
-    }
-
-</style>
+<%inherit file="loggednav.html"/>
 
 <div class="container">
     <div class="row">
@@ -27,21 +8,12 @@
                     <h4 class="panel-title">Management</h4>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                        <a href="${url_for('kitchen')}">Kitchen</a></li>
-                        <li class="list-group-item">
-                        <a href="#">Grocer</a></li>
-                        <li class="list-group-item">
-                        <a href="#">Product</a></li>
+                    <ul>
+                        <%block name="sidebar"></%block>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
-            ${next.body()}
-        </div>
+        ${next.body()}
     </div>
 </div>
-
-
