@@ -77,7 +77,7 @@ def person_id(email):
 
 def user_id(username):
     """ Return a user id given it's username. """
-    return from_field("user", "id", "username", username)
+    return from_field("user", "id", "username", username)[0][0]
 
 def user(userid):
     """ Return a user from the database given it's id stored there. """
@@ -85,13 +85,13 @@ def user(userid):
 
 def user_hash(username):
     """ Return the user hash from it's username . """
-    return from_field("user","hash","username",username)
+    return from_field("user","hash","username",username)[0][0]
 
-def user_kitchen(id):
+def user_kitchen(userid):
     """ Return a dictionnary that contains kitchen of the user identified
-    by id. """
+    by userid. """
 
-    kitchens = from_field('kitchen','name', 'id', id)
+    kitchens = from_field('kitchen','name', 'user', userid)
     result = ({'name':k[0]} for k in kitchens) if kitchens else None
     return result
 
@@ -121,8 +121,13 @@ def deauthenticate(username):
         con.execute(sql, param)
     return
 
-#def kitchen_create(id, name):
-#    """ Insert a kitchen with name and associated with user id
+def kitchen_create(userid, name):
+    """ Insert a kitchen with name and associated with user id. """
+    param = (name,userid)
+    sql = "INSERT INTO kitchen (name, user) values (?,?)"
+    with sqlite3.connect(con_str) as con:
+        con.execute(sql, param)
+    return
 
 ##########################
 # database helper methods.
@@ -153,8 +158,8 @@ def from_field(tname, rname , fname, value):
     param = (value,)
     sql = "SELECT {0} from {1} where {2}=?".format(rname,tname,fname)
     with sqlite3.connect(con_str) as con:
-        result = con.cursor().execute(sql, param).fetchone()
-        result = result[0] if result else None
+        result = con.cursor().execute(sql, param).fetchall()
+        result = result if result else None
     return result
 
 if __name__ == '__main__':

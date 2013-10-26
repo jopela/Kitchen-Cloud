@@ -1,20 +1,19 @@
-<%inherit file="sidebar.html"/>
+<%inherit file="loggednav.html"/>
 <%namespace name="widget" file="widget.html" />
-
-
 <%
     messages = get_flashed_messages()
 %>
-
 % if messages:
     % for m in messages:
         ${widget.success_box(m)}
     % endfor
-% else:
-    <h4> ${user.username}'s kitchen(s) </h4>
+% endif
+
+<h1> ${user.username}'s summary </h1>
+% if kitchens:
     <ul>
-    ##% for k in kitchens:
-    ##    <li> ${k['name']}</li>
-    ##% endfor
+    % for k in kitchens:
+    <li> ${k['name']} </li>
+    % endfor
     </ul>
 % endif

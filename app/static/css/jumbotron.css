@@ -13,3 +13,8 @@ form
 {
     margin-top:15px;
 }
+
+.page-header
+{
+    border-bottom:thin dotted rgb(55,55,55);
+}

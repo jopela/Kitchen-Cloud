@@ -1,8 +1,17 @@
 <%inherit file="nav.html"/>
-
 ## Adding items to the navbar that are common to all
 <%block name="left_items">
-<li><a href="${url_for('zone')}">Zone</a></li>
+    <li><a href="${url_for('profile')}">Profile</a></li>
+    <li><a href="${url_for('kitchen')}">Kitchen</a></li>
+    <li><a href="${url_for('recipe')}">Recipe</a></li>
+    <li><a href="${url_for('inventory')}">Inventory</a></li>
 </%block>
 
+<%block name="right_items">
+<li><a href="${url_for('setting')}">Setting</a></li>
+<li><a href="${url_for('logout')}">Logout</a></li>
+</%block>
+
+<div class="container">
 ${next.body()}
+</div>

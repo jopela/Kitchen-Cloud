@@ -141,13 +141,15 @@ def login():
         # GET request or POST with errors.
         return render_template('login.html', form=user)
 
+# ********************* METHODS THAT REQUIRE USER LOGIN ***********************
 @app.route("/profile")
 @login_required
 def profile():
     """ Page where the user lands once login is completed. """
 
     # Feed the template with all the users Kitchen.
-    kitchens = db.user_kitchen(current_user.get_id())
+    userid = current_user.id
+    kitchens = db.user_kitchen(userid)
     return render_template('profile.html', user=current_user,
             kitchens=kitchens)
 
@@ -155,7 +157,7 @@ def profile():
 @login_required
 def logout():
     """ Function to logout the user and redirect him to the index page. """
-    username = current_user.user[1]
+    username = current_user.username
     deauth_and_logout(username)
 
     return redirect(url_for('index'))
@@ -164,12 +166,14 @@ def logout():
 @login_required
 def kitchen():
     """ Kitchen creation page. """
-
     create = CreateKitchen(request.form)
     if request.method == 'POST' and create.validate():
-        # insert into db and redirect to profile
-        db.kitchen_create()
+        # insert into db and redirect to profile with success message.
+        userid = current_user.id
+        name = create.name.data
+        db.kitchen_create(userid, name)
         flash('Kitchen successfully created!')
+
         return redirect(url_for('profile'))
     else:
         return render_template('kitchen.html', form=create)
@@ -186,6 +190,17 @@ def zone():
     """ Allows a user to CRUD zones for the current kitchen. """
     return render_template('zone.html')
 
+@app.route("/recipe", methods=['GET','POST'])
+@login_required
+def recipe():
+    """ Allows a user to CRUD recipe for the current kitchen. """
+    return render_template('recipe.html')
+
+@app.route("/inventory", methods=['GET','POST'])
+@login_required
+def inventory():
+    """ Inventory page. """
+    return render_template('inventory.html')
 
 
 # ***************************** HELPER METHODS ********************************

@@ -1,14 +1,28 @@
-<%inherit file="sidebar.html"/>
-<div class="col-md-4">
-    <form method="POST" action="${url_for('kitchen')}">
-        <div class="form-group">
-            <label for="name" class="control-label">Name</label>
-            <input type="text" name="name" class="form-control" placeholder="e.g my kitchen">
-        </div>
-        <button type="submit" class="btn btn-primary btn-mg">Add Kitchen</button>
-    </form>
+<%inherit file="loggednav.html"/>
+<%namespace name="widget" file="widget.html" />
+
+<div class="page-header">
+    <h1> Kitchen Management </h1>
 </div>
 
-<%block name="right_items">
-<li><a href="${url_for('logout')}">Logout</a></li>
-</%block>
+% if form.name.errors:
+    <div class="row">
+        <div class="col-md-12">
+            ${widget.danger_box('Invalid kitchen name (too short, must be at least 4 character long)')}
+        </div>
+    </div>
+% endif
+
+<div class="row">
+    <div class="col-md-4">
+        <h3> Add a Kitchen </h3>
+        <form method="POST" action="${url_for('kitchen')}">
+            <div class="form-group">
+                <label for="name" class="control-label">Kitchen's name</label>
+                <input type="text" name="name" class="form-control" placeholder="e.g: restaurant's kitchen">
+            </div>
+            <button type="submit" class="btn btn-primary btn-mg">Add Kitchen</button>
+        </form>
+        
+    </div>
+</div>

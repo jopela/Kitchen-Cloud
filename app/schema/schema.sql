@@ -9,7 +9,7 @@ create table person (
 
 );
 
--- User of the application. A subtype of person who  pays (hopefully) something 
+-- User of the application. A subtype of person who pays (hopefully) something 
 -- to use our app. Will later need to add payment info to a user but this is 
 -- for the future ...
 create table user (
@@ -57,7 +57,6 @@ create table status (
     id integer primary key,
     name varchar(30)
 );
-
 
 -- Kitchen owned by a user. User may have many kitchens
 create table kitchen (
